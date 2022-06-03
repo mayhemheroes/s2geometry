@@ -1,0 +1,4 @@
+project: PROJECT
+target: s2_fuzzer
+cmds:
+- cmd: /out/s2_fuzzer
