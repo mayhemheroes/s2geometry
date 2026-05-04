@@ -15,7 +15,11 @@
 ################################################################################
 
 FROM gcr.io/oss-fuzz-base/base-builder
-RUN apt-get update --fix-missing && apt-get -y install --fix-missing libgflags-dev libgoogle-glog-dev libgtest-dev libssl-dev make curl pkg-config
+RUN for i in 1 2 3 4 5; do \
+      apt-get update --fix-missing && \
+      apt-get -y install --fix-missing libgflags-dev libgoogle-glog-dev libgtest-dev libssl-dev make curl pkg-config && break || \
+      { echo "Attempt $i failed, retrying..."; sleep 10; }; \
+    done
 
 # OpenSSL
 ARG OPENSSL_VERSION=1.1.1w
