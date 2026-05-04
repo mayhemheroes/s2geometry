@@ -15,7 +15,7 @@
 ################################################################################
 
 FROM gcr.io/oss-fuzz-base/base-builder
-RUN apt-get update && apt-get -y install libgflags-dev libgoogle-glog-dev libgtest-dev libssl-dev make curl pkg-config
+RUN apt-get update --fix-missing && apt-get -y install --fix-missing libgflags-dev libgoogle-glog-dev libgtest-dev libssl-dev make curl pkg-config
 
 # OpenSSL
 ARG OPENSSL_VERSION=1.1.1g
