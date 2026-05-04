@@ -18,9 +18,9 @@ FROM gcr.io/oss-fuzz-base/base-builder
 RUN apt-get update --fix-missing && apt-get -y install --fix-missing libgflags-dev libgoogle-glog-dev libgtest-dev libssl-dev make curl pkg-config
 
 # OpenSSL
-ARG OPENSSL_VERSION=1.1.1g
-ARG OPENSSL_HASH=ddb04774f1e32f0c49751e21b67216ac87852ceb056b75209af2443400636d46
-RUN set -ex && curl -s -O https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz && echo "${OPENSSL_HASH} openssl-${OPENSSL_VERSION}.tar.gz" | sha256sum -c && tar -xzf openssl-${OPENSSL_VERSION}.tar.gz && cd openssl-${OPENSSL_VERSION} && ./Configure linux-x86_64 no-shared --static "$CFLAGS" && make build_generated && make libcrypto.a && make install
+ARG OPENSSL_VERSION=1.1.1w
+ARG OPENSSL_HASH=cf3098950cb4d853ad95c0841f1f9c6d3dc102dccfcacd521d93925208b76ac8
+RUN set -ex && curl -sL https://github.com/openssl/openssl/releases/download/OpenSSL_1_1_1w/openssl-${OPENSSL_VERSION}.tar.gz -o openssl-${OPENSSL_VERSION}.tar.gz && echo "${OPENSSL_HASH} openssl-${OPENSSL_VERSION}.tar.gz" | sha256sum -c && tar -xzf openssl-${OPENSSL_VERSION}.tar.gz && cd openssl-${OPENSSL_VERSION} && ./Configure linux-x86_64 no-shared --static "$CFLAGS" && make build_generated && make libcrypto.a && make install
 
 COPY . s2geometry
 RUN rm -rf s2geometry/mayhem
