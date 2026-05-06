@@ -48,6 +48,7 @@ CMAKELISTS_PATCH
 mkdir build && cd build
 
 cmake -DBUILD_SHARED_LIBS=OFF \
+      -DBUILD_TESTS=OFF \
       -DABSL_MIN_LOG_LEVEL=4 ..
 make -j$(nproc)
 find . -name "s2fuzzer" -exec cp {} $OUT/s2_fuzzer \;
