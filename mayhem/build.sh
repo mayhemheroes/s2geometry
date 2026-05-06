@@ -26,7 +26,7 @@ cmake -DCMAKE_POSITION_INDEPENDENT_CODE=ON ../  && make && make install
 cd $SRC/s2geometry
 
 # Append the fuzzer target directly (instead of applying the patch which may fail on updated CMakeLists)
-cat >> CMakeLists.txt << CMAKELISTS_PATCH
+cat >> CMakeLists.txt << 'CMAKELISTS_PATCH'
 
 add_executable(s2fuzzer src/s2_fuzzer.cc)
 set_target_properties(s2fuzzer PROPERTIES LINK_FLAGS $ENV{LIB_FUZZING_ENGINE})
