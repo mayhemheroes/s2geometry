@@ -24,7 +24,27 @@ mkdir build && cd build
 cmake -DCMAKE_POSITION_INDEPENDENT_CODE=ON ../  && make && make install
 
 cd $SRC/s2geometry
-git apply  --ignore-space-change --ignore-whitespace $SRC/project.patch
+
+# Append the fuzzer target directly (instead of applying the patch which may fail on updated CMakeLists)
+cat >> CMakeLists.txt << CMAKELISTS_PATCH
+
+add_executable(s2fuzzer src/s2_fuzzer.cc)
+set_target_properties(s2fuzzer PROPERTIES LINK_FLAGS $ENV{LIB_FUZZING_ENGINE})
+target_link_libraries(
+  s2fuzzer
+  s2
+  absl::base
+  absl::btree
+  absl::core_headers
+  absl::flags_reflection
+  absl::memory
+  absl::span
+  absl::str_format
+  absl::strings
+  absl::utility
+  absl::synchronization)
+CMAKELISTS_PATCH
+
 mkdir build && cd build
 
 cmake -DBUILD_SHARED_LIBS=OFF \

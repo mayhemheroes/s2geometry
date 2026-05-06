@@ -15,6 +15,7 @@
 ################################################################################
 
 FROM gcr.io/oss-fuzz-base/base-builder
+RUN sed -i s|snapshot.ubuntu.com|archive.ubuntu.com|g /etc/apt/sources.list /etc/apt/sources.list.d/*.list 2>/dev/null || true
 RUN for i in 1 2 3 4 5; do \
       apt-get update --fix-missing && \
       apt-get -y install --fix-missing libgflags-dev libgoogle-glog-dev libgtest-dev libssl-dev make curl pkg-config && break || \
