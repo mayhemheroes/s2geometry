@@ -1,0 +1,9 @@
+project: s2geometry
+target: s2_fuzzer
+
+cmds:
+  - cmd: /mayhem/s2_fuzzer
+
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/s2_fuzzer/testsuite
